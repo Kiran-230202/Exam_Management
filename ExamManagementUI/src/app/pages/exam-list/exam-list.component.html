@@ -1,0 +1,54 @@
+<div class="container mt-4">
+    <app-loader [loading]="isLoading"></app-loader>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Saved Exam Results</h4>
+        <button class="btn btn-primary" routerLink="/exam-form">
+            + Add Exam
+        </button>
+    </div>
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Saved Exam Results</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive" *ngIf="exams.length > 0">
+                <table class="table table-bordered table-hover table-striped align-middle">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Student</th>
+                            <th>Year</th>
+                            <th>Total Marks</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let e of exams; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ e.studentName }}</td>
+                            <td>{{ e.examYear }}</td>
+                            <td>{{ e.totalMark }}</td>
+                            <td>
+                                <span class="badge" [ngClass]="e.passOrFail === 'PASS' ? 'bg-success' : 'bg-danger'">
+                                    {{ e.passOrFail }}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <!-- No Data Message -->
+            <div *ngIf="exams.length === 0" class="text-center text-muted">
+                <p class="mb-0">No exam records found.</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>

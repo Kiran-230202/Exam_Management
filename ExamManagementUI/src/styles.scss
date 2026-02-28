@@ -1,0 +1,27 @@
+@use "bootstrap/scss/bootstrap";
+/* styles.css */
+@use "@angular/material/prebuilt-themes/magenta-violet.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Success snackbar */
+.success-snackbar {
+    background-color: #4caf50;
+    /* Green */
+    color: white;
+}
+
+/* Error snackbar */
+.error-snackbar {
+    background-color: #f44336;
+    /* Red */
+    color: white;
+}

@@ -1,0 +1,128 @@
+<div class="container mt-4">
+    <app-loader [loading]="isLoading"></app-loader>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Exam Entry Form</h4>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Student + Year Row -->
+            <div class="row mb-3">
+                <h5 class="mb-3">Select Student</h5>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label class="lable-black">Select Student</mat-label>
+                        <input type="text" class="text-black" matInput [formControl]="studentControl"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayStudent"
+                            (optionSelected)="onStudentSelected($event.option.value)">
+                            <mat-option *ngFor="let s of filteredStudents | async" [value]="s">
+                                {{ s.studentName }}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label class="lable-black">Exam Year</mat-label>
+                        <input matInput class="text-black" type="number" [(ngModel)]="examMaster.examYear">
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- Add Subjects Section -->
+            <h5 class="mb-3">Add Subjects</h5>
+
+            <div class="row align-items-end mb-3">
+
+                <div class="col-md-5">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label class="lable-black">Select Subject</mat-label>
+
+                        <input type="text" class="text-black" matInput [formControl]="subjectControl"
+                            [matAutocomplete]="autoSubject">
+
+                        <mat-autocomplete #autoSubject="matAutocomplete" [displayWith]="displaySubject"
+                            (optionSelected)="selectedSubjectID = $event.option.value.subjectID">
+                            <mat-option *ngFor="let sub of filteredSubjects | async" [value]="sub">
+                                {{ sub.subjectName }}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label class="lable-black">Marks</mat-label>
+                        <input matInput class="text-black" type="number" [(ngModel)]="marks" min="0" max="100">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                    <button class="btn btn-success w-100 mb-4" (click)="addSubject()">
+                        Add
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Subjects Table -->
+            <div class="table-responsive mb-3" *ngIf="examDetails.length > 0">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Subject</th>
+                            <th class="text-center">Marks</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of examDetails; let i = index">
+                            <td>{{ getSubjectName(d.subjectID) }}</td>
+                            <td class="text-center">
+                                <input type="number" class="form-control form-control-sm text-center"
+                                    [(ngModel)]="d.marks" (ngModelChange)="validateMarks(d.marks, i)" min="0"
+                                    max="100" />
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm" (click)="removeSubject(i)">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Total Mark -->
+            <div class="row mb-3" *ngIf="examDetails.length > 0">
+                <div class="col-md-12 text-end">
+                    <h5>
+                        Total Mark:
+                        <span class="badge bg-info fs-6">
+                            {{ totalMark }}
+                        </span>
+                    </h5>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="text-end">
+                <button class="btn btn-secondary me-2" (click)="cancel()">
+                    Cancel
+                </button>
+                <button class="btn btn-primary px-4" (click)="saveExam()">
+                    Save Exam
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
