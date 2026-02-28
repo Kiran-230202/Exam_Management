@@ -26,7 +26,7 @@ The project implements a **Exam Management System**, including basic CRUD operat
 ---
 
 ## Clone the Repository
-git clone https:https://github.com/Kiran-230202/Exam_Management
+git clone https:[https://github.com/Kiran-230202/Exam_Management](https://github.com/Kiran-230202/Exam_Management.git)
 cd RepoName
 
 ## Backend Setup
