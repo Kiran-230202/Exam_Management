@@ -39,9 +39,12 @@ cd RepoName
     }
 
 3.Open Package Manager Console (PMC) and run:
-    Update-Database
+
+        Update-Database
+        
   OR via CLI:
-  dotnet ef database update
+  
+      dotnet ef database update
 This will create all tables and apply migrations.
 
 ## Insert Dummy Data
